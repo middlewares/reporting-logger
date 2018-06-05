@@ -7,7 +7,7 @@
 [![Total Downloads][ico-downloads]][link-downloads]
 [![SensioLabs Insight][ico-sensiolabs]][link-sensiolabs]
 
-Middleware to log server-side reportings, like CSP messages or any javascript error.
+Middleware to log server-side reportings, like CSP messages or any javascript error. More info about [how collect javascript errors](https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/onerror)
 
 ## Requirements
 
