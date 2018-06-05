@@ -1,0 +1,50 @@
+{
+    "name": "middlewares/error-reporting-logger",
+    "type": "library",
+    "description": "A middleware to log client-side errors",
+    "license": "MIT",
+    "keywords": [
+        "psr-7",
+        "psr-15",
+        "middleware",
+        "server",
+        "error",
+        "logger",
+        "http"
+    ],
+    "homepage": "https://github.com/middlewares/error-reporting-logger",
+    "support": {
+        "issues": "https://github.com/middlewares/error-reporting-logger/issues"
+    },
+    "require": {
+        "php": "^7.0",
+        "psr/http-server-middleware": "^1.0",
+        "middlewares/utils": "^1.0",
+        "psr/log": "^1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.0",
+        "zendframework/zend-diactoros": "^1.3",
+        "friendsofphp/php-cs-fixer": "^2.0",
+        "squizlabs/php_codesniffer": "^3.0",
+        "monolog/monolog": "^1.23"
+    },
+    "autoload": {
+        "psr-4": {
+            "Middlewares\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Middlewares\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": [
+            "phpunit --coverage-text",
+            "phpcs"
+        ],
+        "cs-fix": "php-cs-fixer fix .",
+        "coverage": "phpunit --coverage-html=coverage"
+    }
+}
