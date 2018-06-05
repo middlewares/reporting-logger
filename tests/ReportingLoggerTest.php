@@ -2,14 +2,14 @@
 
 namespace Middlewares\Tests;
 
-use Middlewares\ErrorReportingLogger;
+use Middlewares\ReportingLogger;
 use Middlewares\Utils\Dispatcher;
 use Middlewares\Utils\Factory;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use PHPUnit\Framework\TestCase;
 
-class ErrorReportingLoggerTest extends TestCase
+class ReportingLoggerTest extends TestCase
 {
     private function createLogger(): array
     {
@@ -20,7 +20,7 @@ class ErrorReportingLoggerTest extends TestCase
         return [$logger, $logs];
     }
 
-    public function testErrorReportingLogger()
+    public function testReportingLogger()
     {
         list($logger, $logs) = $this->createLogger();
 
@@ -28,7 +28,7 @@ class ErrorReportingLoggerTest extends TestCase
             ->withParsedBody(['message' => 'This is an error']);
 
         $response = Dispatcher::run([
-            new ErrorReportingLogger($logger),
+            new ReportingLogger($logger),
             function () {
                 return 'no reporting';
             },
@@ -49,7 +49,7 @@ class ErrorReportingLoggerTest extends TestCase
             ->withParsedBody(['csp-report' => 'This is an error']);
 
         $response = Dispatcher::run([
-            (new ErrorReportingLogger($logger))->message('csp-report'),
+            (new ReportingLogger($logger))->message('csp-report'),
             function () {
                 return 'no reporting';
             },
@@ -70,7 +70,7 @@ class ErrorReportingLoggerTest extends TestCase
             ->withParsedBody(['message' => 'This is an error']);
 
         $response = Dispatcher::run([
-            (new ErrorReportingLogger($logger))->path('/custom-path'),
+            (new ReportingLogger($logger))->path('/custom-path'),
             function () {
                 return 'no reporting';
             },
@@ -91,7 +91,7 @@ class ErrorReportingLoggerTest extends TestCase
             ->withParsedBody(['message' => 'This is an error']);
 
         $response = Dispatcher::run([
-            new ErrorReportingLogger($logger),
+            new ReportingLogger($logger),
             function () {
                 return 'no reporting';
             },
@@ -111,7 +111,7 @@ class ErrorReportingLoggerTest extends TestCase
             ->withParsedBody(['message' => 'This is an error']);
 
         $response = Dispatcher::run([
-            new ErrorReportingLogger($logger),
+            new ReportingLogger($logger),
             function () {
                 return 'no reporting';
             },
@@ -131,7 +131,7 @@ class ErrorReportingLoggerTest extends TestCase
             ->withParsedBody(['no-message' => 'This is an error']);
 
         $response = Dispatcher::run([
-            new ErrorReportingLogger($logger),
+            new ReportingLogger($logger),
             function () {
                 return 'no reporting';
             },

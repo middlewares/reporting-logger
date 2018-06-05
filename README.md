@@ -1,4 +1,4 @@
-# middlewares/error-reporting-logger
+# middlewares/reporting-logger
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE)
@@ -7,7 +7,7 @@
 [![Total Downloads][ico-downloads]][link-downloads]
 [![SensioLabs Insight][ico-sensiolabs]][link-sensiolabs]
 
-Middleware to log server-side error reportings, like CSP reportings or any javascript error.
+Middleware to log server-side reportings, like CSP messages or any javascript error.
 
 ## Requirements
 
@@ -17,10 +17,10 @@ Middleware to log server-side error reportings, like CSP reportings or any javas
 
 ## Installation
 
-This package is installable and autoloadable via Composer as [middlewares/error-reporting-logger](https://packagist.org/packages/middlewares/error-reporting-logger).
+This package is installable and autoloadable via Composer as [middlewares/reporting-logger](https://packagist.org/packages/middlewares/reporting-logger).
 
 ```sh
-composer require middlewares/error-reporting-logger
+composer require middlewares/reporting-logger
 ```
 
 ## Example
@@ -36,7 +36,7 @@ window.onerror = function (message, file, lineNo, colNo) {
 
 ```php
 $dispatcher = new Dispatcher([
-    new Middlewares\ErrorReportingLogger($logger)
+    new Middlewares\ReportingLogger($logger)
 ]);
 
 $response = $dispatcher->dispatch(new ServerRequest());
@@ -62,15 +62,15 @@ Please see [CHANGELOG](CHANGELOG.md) for more information about recent changes a
 
 The MIT License (MIT). Please see [LICENSE](LICENSE) for more information.
 
-[ico-version]: https://img.shields.io/packagist/v/middlewares/error-reporting-handler.svg?style=flat-square
+[ico-version]: https://img.shields.io/packagist/v/middlewares/reporting-logger.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/middlewares/error-reporting-handler/master.svg?style=flat-square
-[ico-scrutinizer]: https://img.shields.io/scrutinizer/g/middlewares/error-reporting-handler.svg?style=flat-square
-[ico-downloads]: https://img.shields.io/packagist/dt/middlewares/error-reporting-handler.svg?style=flat-square
+[ico-travis]: https://img.shields.io/travis/middlewares/reporting-logger/master.svg?style=flat-square
+[ico-scrutinizer]: https://img.shields.io/scrutinizer/g/middlewares/reporting-logger.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/middlewares/reporting-logger.svg?style=flat-square
 [ico-sensiolabs]: https://img.shields.io/sensiolabs/i/{project_id_here}.svg?style=flat-square
 
-[link-packagist]: https://packagist.org/packages/middlewares/error-reporting-handler
-[link-travis]: https://travis-ci.org/middlewares/error-reporting-handler
-[link-scrutinizer]: https://scrutinizer-ci.com/g/middlewares/error-reporting-handler
-[link-downloads]: https://packagist.org/packages/middlewares/error-reporting-handler
+[link-packagist]: https://packagist.org/packages/middlewares/reporting-logger
+[link-travis]: https://travis-ci.org/middlewares/reporting-logger
+[link-scrutinizer]: https://scrutinizer-ci.com/g/middlewares/reporting-logger
+[link-downloads]: https://packagist.org/packages/middlewares/reporting-logger
 [link-sensiolabs]: https://insight.sensiolabs.com/projects/{project_id_here}

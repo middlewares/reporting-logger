@@ -10,7 +10,7 @@ use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Psr\Log\LoggerInterface;
 
-class ErrorReportingLogger implements MiddlewareInterface
+class ReportingLogger implements MiddlewareInterface
 {
     /**
      * @var string

@@ -1,7 +1,7 @@
 {
-    "name": "middlewares/error-reporting-logger",
+    "name": "middlewares/reporting-logger",
     "type": "library",
-    "description": "A middleware to log client-side errors",
+    "description": "A middleware to log client-side reportings",
     "license": "MIT",
     "keywords": [
         "psr-7",
@@ -9,12 +9,13 @@
         "middleware",
         "server",
         "error",
+        "reporting",
         "logger",
         "http"
     ],
-    "homepage": "https://github.com/middlewares/error-reporting-logger",
+    "homepage": "https://github.com/middlewares/reporting-logger",
     "support": {
-        "issues": "https://github.com/middlewares/error-reporting-logger/issues"
+        "issues": "https://github.com/middlewares/reporting-logger/issues"
     },
     "require": {
         "php": "^7.0",
