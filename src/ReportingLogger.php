@@ -43,7 +43,7 @@ class ReportingLogger implements MiddlewareInterface
     }
 
     /**
-     * Configure the message key used to save the data
+     * Configure the message used to save the data
      */
     public function message(string $message): self
     {
@@ -76,11 +76,13 @@ class ReportingLogger implements MiddlewareInterface
 
         $data = (array) $request->getParsedBody();
 
-        if (empty($data[$this->message])) {
+        if (empty($data)) {
             return false;
         }
 
-        $this->logger->error($data[$this->message], $data);
+        $message = is_string($data[$this->message]) ? $data[$this->message] : $this->message;
+
+        $this->logger->error($message, $data);
 
         return true;
     }

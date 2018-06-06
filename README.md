@@ -52,9 +52,9 @@ A PSR logger implementation used to save the logs.
 
 The path where the logs will be reported. By default is '/report'.
 
-### `message(strign $message)`
+### `message(string $message)`
 
-The key used to get the log message from the parsed body. By default is `message`. If the key does not exists in the parsed body, the data wont be saved.
+The message used to save the logs or the key used to get the message from the reporting data.
 
 ---
 
