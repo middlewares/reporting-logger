@@ -80,7 +80,7 @@ class ReportingLogger implements MiddlewareInterface
             return false;
         }
 
-        $message = is_string($data[$this->message]) ? $data[$this->message] : $this->message;
+        $message = empty($data[$this->message]) ? $this->message : $data[$this->message];
 
         $this->logger->error($message, $data);
 
