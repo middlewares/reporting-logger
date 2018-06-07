@@ -5,7 +5,6 @@
 [![Build Status][ico-travis]][link-travis]
 [![Quality Score][ico-scrutinizer]][link-scrutinizer]
 [![Total Downloads][ico-downloads]][link-downloads]
-[![SensioLabs Insight][ico-sensiolabs]][link-sensiolabs]
 
 Middleware to log server-side reportings, like CSP messages or any javascript error. More info about [how collect javascript errors](https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/onerror)
 
@@ -75,10 +74,8 @@ The MIT License (MIT). Please see [LICENSE](LICENSE) for more information.
 [ico-travis]: https://img.shields.io/travis/middlewares/reporting-logger/master.svg?style=flat-square
 [ico-scrutinizer]: https://img.shields.io/scrutinizer/g/middlewares/reporting-logger.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/middlewares/reporting-logger.svg?style=flat-square
-[ico-sensiolabs]: https://img.shields.io/sensiolabs/i/{project_id_here}.svg?style=flat-square
 
 [link-packagist]: https://packagist.org/packages/middlewares/reporting-logger
 [link-travis]: https://travis-ci.org/middlewares/reporting-logger
 [link-scrutinizer]: https://scrutinizer-ci.com/g/middlewares/reporting-logger
 [link-downloads]: https://packagist.org/packages/middlewares/reporting-logger
-[link-sensiolabs]: https://insight.sensiolabs.com/projects/{project_id_here}
