@@ -50,7 +50,7 @@ A PSR logger implementation used to save the logs.
 
 #### `path(string $path)`
 
-The path where the logs will be reported. By default is '/report'.
+The path where the logs will be reported. By default is `/report`.
 
 #### `message(string $message)`
 
