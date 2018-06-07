@@ -15,7 +15,7 @@ class ReportingLogger implements MiddlewareInterface
     /**
      * @var string
      */
-    private $message = 'message';
+    private $message = 'Reporting';
 
     /**
      * @var string
@@ -80,10 +80,23 @@ class ReportingLogger implements MiddlewareInterface
             return false;
         }
 
-        $message = empty($data[$this->message]) ? $this->message : $data[$this->message];
-
-        $this->logger->error($message, $data);
+        $this->logger->error(self::getMessage($this->message, $data), $data);
 
         return true;
+    }
+
+    /**
+     * Search and replace all %{varname} with the values from the reporting data
+     */
+    private static function getMessage(string $message, array $data): string
+    {
+        return preg_replace_callback(
+            '/%\{([^\}]+)\}/',
+            function (array $matches) use ($data) {
+                $key = $matches[1];
+                return $data[$key] ?? $key;
+            },
+            $message
+        );
     }
 }

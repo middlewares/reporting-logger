@@ -53,9 +53,16 @@ A PSR logger implementation used to save the logs.
 
 The path where the logs will be reported. By default is '/report'.
 
-### `message(string $message)`
+#### `message(string $message)`
 
-The message used to save the logs or the key used to get the message from the reporting data.
+The message used to save the logs. You can use the strings `%{varname}` to generate dinamic messages using the reporting data. For example:
+
+```php
+$dispatcher = new Dispatcher([
+    (new Middlewares\ReportingLogger($logger))
+        ->message('New error: "%{message}" in line %{lineNumber}, column %{colNumber}')
+]);
+```
 
 ---
 

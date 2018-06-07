@@ -38,7 +38,7 @@ class ReportingLoggerTest extends TestCase
 
         $this->assertSame(200, $response->getStatusCode());
         $this->assertEmpty((string) $response->getBody());
-        $this->assertRegExp('#.* test.ERROR: This is an error .*#', stream_get_contents($logs));
+        $this->assertRegExp('#.* test.ERROR: Reporting .*#', stream_get_contents($logs));
     }
 
     public function testCustomMessage()
@@ -62,7 +62,7 @@ class ReportingLoggerTest extends TestCase
         $this->assertRegExp('#.* test.ERROR: Csp Error .*#', stream_get_contents($logs));
     }
 
-    public function testCustomMessageAsKey()
+    public function testCustomMessageWithVariable()
     {
         list($logger, $logs) = $this->createLogger();
 
@@ -70,7 +70,7 @@ class ReportingLoggerTest extends TestCase
             ->withParsedBody(['csp-error' => 'This is a specific error']);
 
         $response = Dispatcher::run([
-            (new ReportingLogger($logger))->message('csp-error'),
+            (new ReportingLogger($logger))->message('Error: %{csp-error}'),
             function () {
                 return 'no reporting';
             },
@@ -80,7 +80,7 @@ class ReportingLoggerTest extends TestCase
 
         $this->assertSame(200, $response->getStatusCode());
         $this->assertEmpty((string) $response->getBody());
-        $this->assertRegExp('#.* test.ERROR: This is a specific error .*#', stream_get_contents($logs));
+        $this->assertRegExp('#.* test.ERROR: Error: This is a specific error .*#', stream_get_contents($logs));
     }
 
     public function testCustomPath()
@@ -101,7 +101,7 @@ class ReportingLoggerTest extends TestCase
 
         $this->assertSame(200, $response->getStatusCode());
         $this->assertEmpty((string) $response->getBody());
-        $this->assertRegExp('#.* test.ERROR: This is an error .*#', stream_get_contents($logs));
+        $this->assertRegExp('#.* test.ERROR: Reporting .*#', stream_get_contents($logs));
     }
 
     public function testMethod()
@@ -142,26 +142,6 @@ class ReportingLoggerTest extends TestCase
 
         $this->assertEquals('no reporting', (string) $response->getBody());
         $this->assertEmpty(stream_get_contents($logs));
-    }
-
-    public function testMessage()
-    {
-        list($logger, $logs) = $this->createLogger();
-
-        $request = Factory::createServerRequest([], 'POST', '/report')
-            ->withParsedBody(['no-message' => 'This is an error']);
-
-        $response = Dispatcher::run([
-            new ReportingLogger($logger),
-            function () {
-                return 'no reporting';
-            },
-        ], $request);
-
-        rewind($logs);
-
-        $this->assertEmpty((string) $response->getBody());
-        $this->assertRegExp('#.* test.ERROR: message .*#', stream_get_contents($logs));
     }
 
     public function testEmptyData()
@@ -214,6 +194,6 @@ class ReportingLoggerTest extends TestCase
         rewind($logs);
 
         $this->assertEmpty((string) $response->getBody());
-        $this->assertRegExp('#.* test.ERROR: message \{"csp-report"\:\{.*#', stream_get_contents($logs));
+        $this->assertRegExp('#.* test.ERROR: Reporting \{"csp-report"\:\{.*#', stream_get_contents($logs));
     }
 }
