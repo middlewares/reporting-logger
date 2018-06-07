@@ -93,8 +93,13 @@ class ReportingLogger implements MiddlewareInterface
         return preg_replace_callback(
             '/%\{([^\}]+)\}/',
             function (array $matches) use ($data) {
-                $key = $matches[1];
-                return $data[$key] ?? $key;
+                $val = $data[$matches[1]] ?? $matches[0];
+
+                if (is_scalar($val)) {
+                    return $val;
+                }
+
+                return json_encode($val);
             },
             $message
         );

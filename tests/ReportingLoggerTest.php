@@ -67,10 +67,10 @@ class ReportingLoggerTest extends TestCase
         list($logger, $logs) = $this->createLogger();
 
         $request = Factory::createServerRequest([], 'POST', '/report')
-            ->withParsedBody(['csp-error' => 'This is a specific error']);
+            ->withParsedBody(['var1' => 'Foo', 'var2' => null, 'var3' => [1, 2, 3]]);
 
         $response = Dispatcher::run([
-            (new ReportingLogger($logger))->message('Error: %{csp-error}'),
+            (new ReportingLogger($logger))->message('Error: %{var1} in %{var2} and %{var3}'),
             function () {
                 return 'no reporting';
             },
@@ -80,7 +80,7 @@ class ReportingLoggerTest extends TestCase
 
         $this->assertSame(200, $response->getStatusCode());
         $this->assertEmpty((string) $response->getBody());
-        $this->assertRegExp('#.* test.ERROR: Error: This is a specific error .*#', stream_get_contents($logs));
+        $this->assertRegExp('#.* test.ERROR: Error: Foo in %{var2} and \[1,2,3\] .*#', stream_get_contents($logs));
     }
 
     public function testCustomPath()
