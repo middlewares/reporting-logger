@@ -37,7 +37,7 @@ window.onerror = function (message, file, lineNo, colNo) {
 
 ```php
 $dispatcher = new Dispatcher([
-    new Middlewares\ReportingLogger($logger)
+    new Middlewares\JsonPayload(),
     new Middlewares\ReportingLogger($logger)
 ]);
 
