@@ -30,8 +30,10 @@ Register a error handler in your javascript code:
 
 ```js
 window.onerror = function (message, file, lineNo, colNo) {
-    const error = {message, file, lineNo, colNo};
-    navigator.sendBeacon('/report', JSON.stringify(err));
+    const error = { message, file, lineNo, colNo };
+    const blob = new Blob([ JSON.stringify(error) ], { type: 'application/json' });
+
+    navigator.sendBeacon('/report', blob);
 }
 ```
 
