@@ -6,7 +6,8 @@
 [![Quality Score][ico-scrutinizer]][link-scrutinizer]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-Middleware to log server-side reportings, like CSP messages or any javascript error. More info about [how collect javascript errors](https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/onerror)
+Middleware to log server-side reportings, like CSP messages or any javascript error. More info about [how collect javascript errors](https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/onerror).
+You may need also the [middlewares/payload](https://github.com/middlewares/payload) (or any other middleware with the same purpose) to parse the json of the body.
 
 ## Requirements
 
@@ -37,6 +38,7 @@ window.onerror = function (message, file, lineNo, colNo) {
 ```php
 $dispatcher = new Dispatcher([
     new Middlewares\ReportingLogger($logger)
+    new Middlewares\ReportingLogger($logger)
 ]);
 
 $response = $dispatcher->dispatch(new ServerRequest());
@@ -58,6 +60,7 @@ The message used to save the logs. You can use the strings `%{varname}` to gener
 
 ```php
 $dispatcher = new Dispatcher([
+    new Middlewares\JsonPayload(),
     (new Middlewares\ReportingLogger($logger))
         ->message('New error: "%{message}" in line %{lineNumber}, column %{colNumber}')
 ]);
