@@ -24,7 +24,7 @@ class ReportingLoggerTest extends TestCase
     {
         list($logger, $logs) = $this->createLogger();
 
-        $request = Factory::createServerRequest([], 'POST', '/report')
+        $request = Factory::createServerRequest('POST', '/report')
             ->withParsedBody(['message' => 'This is an error']);
 
         $response = Dispatcher::run([
@@ -45,7 +45,7 @@ class ReportingLoggerTest extends TestCase
     {
         list($logger, $logs) = $this->createLogger();
 
-        $request = Factory::createServerRequest([], 'POST', '/report')
+        $request = Factory::createServerRequest('POST', '/report')
             ->withParsedBody(['message' => 'This is an error']);
 
         $response = Dispatcher::run([
@@ -66,7 +66,7 @@ class ReportingLoggerTest extends TestCase
     {
         list($logger, $logs) = $this->createLogger();
 
-        $request = Factory::createServerRequest([], 'POST', '/report')
+        $request = Factory::createServerRequest('POST', '/report')
             ->withParsedBody(['var1' => 'Foo', 'var2' => null, 'var3' => [1, 2, 3]]);
 
         $response = Dispatcher::run([
@@ -87,7 +87,7 @@ class ReportingLoggerTest extends TestCase
     {
         list($logger, $logs) = $this->createLogger();
 
-        $request = Factory::createServerRequest([], 'POST', '/custom-path')
+        $request = Factory::createServerRequest('POST', '/custom-path')
             ->withParsedBody(['message' => 'This is an error']);
 
         $response = Dispatcher::run([
@@ -108,7 +108,7 @@ class ReportingLoggerTest extends TestCase
     {
         list($logger, $logs) = $this->createLogger();
 
-        $request = Factory::createServerRequest([], 'GET', '/report')
+        $request = Factory::createServerRequest('GET', '/report')
             ->withParsedBody(['message' => 'This is an error']);
 
         $response = Dispatcher::run([
@@ -128,7 +128,7 @@ class ReportingLoggerTest extends TestCase
     {
         list($logger, $logs) = $this->createLogger();
 
-        $request = Factory::createServerRequest([], 'POST', '/no-report')
+        $request = Factory::createServerRequest('POST', '/no-report')
             ->withParsedBody(['message' => 'This is an error']);
 
         $response = Dispatcher::run([
@@ -148,7 +148,7 @@ class ReportingLoggerTest extends TestCase
     {
         list($logger, $logs) = $this->createLogger();
 
-        $request = Factory::createServerRequest([], 'POST', '/report');
+        $request = Factory::createServerRequest('POST', '/report');
 
         $response = Dispatcher::run([
             new ReportingLogger($logger),
@@ -167,7 +167,7 @@ class ReportingLoggerTest extends TestCase
     {
         list($logger, $logs) = $this->createLogger();
 
-        $request = Factory::createServerRequest([], 'POST', '/report')
+        $request = Factory::createServerRequest('POST', '/report')
             ->withParsedBody([
                 'csp-report' => [
                     'document-uri' => 'https://example.com/',

@@ -3,7 +3,7 @@ declare(strict_types = 1);
 
 namespace Middlewares;
 
-use Middlewares\Utils\Factory;
+use Middlewares\Utils\Traits\HasResponseFactory;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -12,6 +12,8 @@ use Psr\Log\LoggerInterface;
 
 class ReportingLogger implements MiddlewareInterface
 {
+    use HasResponseFactory;
+
     /**
      * @var string
      */
@@ -58,7 +60,7 @@ class ReportingLogger implements MiddlewareInterface
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         if ($this->logReport($request)) {
-            return Factory::createResponse();
+            return $this->createResponse();
         }
 
         return $handler->handle($request);
