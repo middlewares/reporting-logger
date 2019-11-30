@@ -28,6 +28,11 @@ class ReportingLogger implements MiddlewareInterface
      */
     private $logger;
 
+    /**
+     * @var ResponseFactoryInterface
+     */
+    private $responseFactory;
+
     public function __construct(LoggerInterface $logger, ResponseFactoryInterface $responseFactory = null)
     {
         $this->logger = $logger;
