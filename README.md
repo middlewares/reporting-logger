@@ -11,7 +11,7 @@ You may need also the [middlewares/payload](https://github.com/middlewares/paylo
 
 ## Requirements
 
-* PHP >= 7.0
+* PHP >= 7.2
 * A [PSR-7 http library](https://github.com/middlewares/awesome-psr15-middlewares#psr-7-implementations)
 * A [PSR-15 middleware dispatcher](https://github.com/middlewares/awesome-psr15-middlewares#dispatcher)
 * A [PSR-3 logger library](https://www.php-fig.org/psr/psr-3/)
@@ -38,39 +38,60 @@ window.onerror = function (message, file, lineNo, colNo) {
 ```
 
 ```php
-$dispatcher = new Dispatcher([
+Dispatcher::run([
     new Middlewares\JsonPayload(),
     new Middlewares\ReportingLogger($logger)
 ]);
-
-$response = $dispatcher->dispatch(new ServerRequest());
 ```
 
-## Options
+## Usage
 
-#### `__construct(Psr\Log\LoggerInterface $log)`
+You need a `Psr\Log\LoggerInterface` instance to handle the logs, for example, [monolog](https://github.com/Seldaek/monolog)
 
-A PSR logger implementation used to save the logs.
+```php
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 
-#### `path(string $path)`
+$logger = new Logger('access');
+$logger->pushHandler(new StreamHandler('data/logs.txt'));
 
-The path where the logs will be reported. By default is `/report`.
+Dispatcher::run([
+    new Middlewares\ReportingLogger($logger)
+]);
+```
 
-#### `message(string $message)`
+Optionally, you can provide a `Psr\Http\Message\ResponseFactoryInterface` as the second argument, that will be used to create the responses returned after handle the reporting. If it's not defined, [Middleware\Utils\Factory](https://github.com/middlewares/utils#factory) will be used to detect it automatically.
+
+```php
+$responseFactory = new MyOwnResponseFactory();
+
+$reporting = new Middlewares\ReportingLogger($logger, $responseFactory);
+```
+
+### path
+
+The uri path where the logs will be reported. By default is `/report`.
+
+```js
+// In front-end: send the error to "/log-reporting" path
+navigator.sendBeacon('/log-reporting', error);
+```
+
+```php
+// In back-end: configure to collect all reportings send to the same path
+$reporting = (new Middlewares\ReportingLogger($logger))->path('/log-reporting')
+```
+
+### message
 
 The message used to save the logs. You can use the strings `%{varname}` to generate dinamic messages using the reporting data. For example:
 
 ```php
-$dispatcher = new Dispatcher([
-    new Middlewares\JsonPayload(),
-    (new Middlewares\ReportingLogger($logger))
-        ->message('New error: "%{message}" in line %{lineNumber}, column %{colNumber}')
+$reporting = (new Middlewares\ReportingLogger($logger))
+    ->message('New error: "%{message}" in line %{lineNumber}, column %{colNumber}')
 ]);
 ```
 
-#### `responseFactory(Psr\Http\Message\ResponseFactoryInterface $responseFactory)`
-
-A PSR-17 factory to create the responses.
 ---
 
 Please see [CHANGELOG](CHANGELOG.md) for more information about recent changes and [CONTRIBUTING](CONTRIBUTING.md) for contributing details.
