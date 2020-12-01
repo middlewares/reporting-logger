@@ -38,7 +38,7 @@ class ReportingLoggerTest extends TestCase
 
         $this->assertSame(200, $response->getStatusCode());
         $this->assertEmpty((string) $response->getBody());
-        $this->assertRegExp('#.* test.ERROR: Reporting .*#', stream_get_contents($logs));
+        $this->assertMatchesRegularExpression('#.* test.ERROR: Reporting .*#', stream_get_contents($logs));
     }
 
     public function testCustomMessage()
@@ -59,7 +59,7 @@ class ReportingLoggerTest extends TestCase
 
         $this->assertSame(200, $response->getStatusCode());
         $this->assertEmpty((string) $response->getBody());
-        $this->assertRegExp('#.* test.ERROR: Csp Error .*#', stream_get_contents($logs));
+        $this->assertMatchesRegularExpression('#.* test.ERROR: Csp Error .*#', stream_get_contents($logs));
     }
 
     public function testCustomMessageWithVariable()
@@ -80,7 +80,7 @@ class ReportingLoggerTest extends TestCase
 
         $this->assertSame(200, $response->getStatusCode());
         $this->assertEmpty((string) $response->getBody());
-        $this->assertRegExp('#.* test.ERROR: Error: Foo in %{var2} and \[1,2,3\] .*#', stream_get_contents($logs));
+        $this->assertMatchesRegularExpression('#.* test.ERROR: Error: Foo in %{var2} and \[1,2,3\] .*#', stream_get_contents($logs));
     }
 
     public function testCustomPath()
@@ -101,7 +101,7 @@ class ReportingLoggerTest extends TestCase
 
         $this->assertSame(200, $response->getStatusCode());
         $this->assertEmpty((string) $response->getBody());
-        $this->assertRegExp('#.* test.ERROR: Reporting .*#', stream_get_contents($logs));
+        $this->assertMatchesRegularExpression('#.* test.ERROR: Reporting .*#', stream_get_contents($logs));
     }
 
     public function testMethod()
@@ -194,6 +194,6 @@ class ReportingLoggerTest extends TestCase
         rewind($logs);
 
         $this->assertEmpty((string) $response->getBody());
-        $this->assertRegExp('#.* test.ERROR: Reporting \{"csp-report"\:\{.*#', stream_get_contents($logs));
+        $this->assertMatchesRegularExpression('#.* test.ERROR: Reporting \{"csp-report"\:\{.*#', stream_get_contents($logs));
     }
 }
