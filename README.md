@@ -103,5 +103,4 @@ The MIT License (MIT). Please see [LICENSE](LICENSE) for more information.
 [ico-downloads]: https://img.shields.io/packagist/dt/middlewares/reporting-logger.svg?style=flat-square
 
 [link-packagist]: https://packagist.org/packages/middlewares/reporting-logger
-[link-scrutinizer]: https://scrutinizer-ci.com/g/middlewares/reporting-logger
 [link-downloads]: https://packagist.org/packages/middlewares/reporting-logger
