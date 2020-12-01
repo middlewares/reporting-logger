@@ -2,8 +2,7 @@
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE)
-[![Build Status][ico-travis]][link-travis]
-[![Quality Score][ico-scrutinizer]][link-scrutinizer]
+![Testing][ico-ga]
 [![Total Downloads][ico-downloads]][link-downloads]
 
 Middleware to log server-side reportings, like CSP messages or any javascript error. More info about [how collect javascript errors](https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/onerror).
@@ -100,11 +99,9 @@ The MIT License (MIT). Please see [LICENSE](LICENSE) for more information.
 
 [ico-version]: https://img.shields.io/packagist/v/middlewares/reporting-logger.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/middlewares/reporting-logger/master.svg?style=flat-square
-[ico-scrutinizer]: https://img.shields.io/scrutinizer/g/middlewares/reporting-logger.svg?style=flat-square
+[ico-ga]: https://github.com/middlewares/reporting-logger/workflows/testing/badge.svg
 [ico-downloads]: https://img.shields.io/packagist/dt/middlewares/reporting-logger.svg?style=flat-square
 
 [link-packagist]: https://packagist.org/packages/middlewares/reporting-logger
-[link-travis]: https://travis-ci.org/middlewares/reporting-logger
 [link-scrutinizer]: https://scrutinizer-ci.com/g/middlewares/reporting-logger
 [link-downloads]: https://packagist.org/packages/middlewares/reporting-logger
