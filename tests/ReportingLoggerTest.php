@@ -11,6 +11,19 @@ use PHPUnit\Framework\TestCase;
 
 class ReportingLoggerTest extends TestCase
 {
+    /**
+     * phpunit 8 support
+     */
+    public static function assertMatchesRegularExpression(string $pattern, string $string, string $message = ''): void
+    {
+        if (method_exists(parent::class, 'assertMatchesRegularExpression')) {
+            parent::assertMatchesRegularExpression($pattern, $string, $message);
+            return;
+        }
+
+        self::assertRegExp($pattern, $string, $message);
+    }
+
     private function createLogger(): array
     {
         $logs = fopen('php://temp', 'r+');
@@ -36,9 +49,9 @@ class ReportingLoggerTest extends TestCase
 
         rewind($logs);
 
-        $this->assertSame(200, $response->getStatusCode());
-        $this->assertEmpty((string) $response->getBody());
-        $this->assertMatchesRegularExpression('#.* test.ERROR: Reporting .*#', stream_get_contents($logs));
+        self::assertSame(200, $response->getStatusCode());
+        self::assertEmpty((string) $response->getBody());
+        self::assertMatchesRegularExpression('#.* test.ERROR: Reporting .*#', stream_get_contents($logs));
     }
 
     public function testCustomMessage()
@@ -57,9 +70,9 @@ class ReportingLoggerTest extends TestCase
 
         rewind($logs);
 
-        $this->assertSame(200, $response->getStatusCode());
-        $this->assertEmpty((string) $response->getBody());
-        $this->assertMatchesRegularExpression('#.* test.ERROR: Csp Error .*#', stream_get_contents($logs));
+        self::assertSame(200, $response->getStatusCode());
+        self::assertEmpty((string) $response->getBody());
+        self::assertMatchesRegularExpression('#.* test.ERROR: Csp Error .*#', stream_get_contents($logs));
     }
 
     public function testCustomMessageWithVariable()
@@ -78,9 +91,9 @@ class ReportingLoggerTest extends TestCase
 
         rewind($logs);
 
-        $this->assertSame(200, $response->getStatusCode());
-        $this->assertEmpty((string) $response->getBody());
-        $this->assertMatchesRegularExpression('#.* test.ERROR: Error: Foo in %{var2} and \[1,2,3\] .*#', stream_get_contents($logs));
+        self::assertSame(200, $response->getStatusCode());
+        self::assertEmpty((string) $response->getBody());
+        self::assertMatchesRegularExpression('#.* test.ERROR: Error: Foo in %{var2} and \[1,2,3\] .*#', stream_get_contents($logs));
     }
 
     public function testCustomPath()
@@ -99,9 +112,9 @@ class ReportingLoggerTest extends TestCase
 
         rewind($logs);
 
-        $this->assertSame(200, $response->getStatusCode());
-        $this->assertEmpty((string) $response->getBody());
-        $this->assertMatchesRegularExpression('#.* test.ERROR: Reporting .*#', stream_get_contents($logs));
+        self::assertSame(200, $response->getStatusCode());
+        self::assertEmpty((string) $response->getBody());
+        self::assertMatchesRegularExpression('#.* test.ERROR: Reporting .*#', stream_get_contents($logs));
     }
 
     public function testMethod()
@@ -120,8 +133,8 @@ class ReportingLoggerTest extends TestCase
 
         rewind($logs);
 
-        $this->assertEquals('no reporting', (string) $response->getBody());
-        $this->assertEmpty(stream_get_contents($logs));
+        self::assertEquals('no reporting', (string) $response->getBody());
+        self::assertEmpty(stream_get_contents($logs));
     }
 
     public function testPath()
@@ -140,8 +153,8 @@ class ReportingLoggerTest extends TestCase
 
         rewind($logs);
 
-        $this->assertEquals('no reporting', (string) $response->getBody());
-        $this->assertEmpty(stream_get_contents($logs));
+        self::assertEquals('no reporting', (string) $response->getBody());
+        self::assertEmpty(stream_get_contents($logs));
     }
 
     public function testEmptyData()
@@ -159,8 +172,8 @@ class ReportingLoggerTest extends TestCase
 
         rewind($logs);
 
-        $this->assertEquals('no reporting', (string) $response->getBody());
-        $this->assertEmpty(stream_get_contents($logs));
+        self::assertEquals('no reporting', (string) $response->getBody());
+        self::assertEmpty(stream_get_contents($logs));
     }
 
     public function testCspReport()
@@ -193,7 +206,7 @@ class ReportingLoggerTest extends TestCase
 
         rewind($logs);
 
-        $this->assertEmpty((string) $response->getBody());
-        $this->assertMatchesRegularExpression('#.* test.ERROR: Reporting \{"csp-report"\:\{.*#', stream_get_contents($logs));
+        self::assertEmpty((string) $response->getBody());
+        self::assertMatchesRegularExpression('#.* test.ERROR: Reporting \{"csp-report"\:\{.*#', stream_get_contents($logs));
     }
 }
