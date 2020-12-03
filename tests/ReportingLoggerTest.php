@@ -93,7 +93,10 @@ class ReportingLoggerTest extends TestCase
 
         self::assertSame(200, $response->getStatusCode());
         self::assertEmpty((string) $response->getBody());
-        self::assertMatchesRegularExpression('#.* test.ERROR: Error: Foo in %{var2} and \[1,2,3\] .*#', stream_get_contents($logs));
+        self::assertMatchesRegularExpression(
+            '#.* test.ERROR: Error: Foo in %{var2} and \[1,2,3\] .*#',
+            stream_get_contents($logs)
+        );
     }
 
     public function testCustomPath()
@@ -207,6 +210,9 @@ class ReportingLoggerTest extends TestCase
         rewind($logs);
 
         self::assertEmpty((string) $response->getBody());
-        self::assertMatchesRegularExpression('#.* test.ERROR: Reporting \{"csp-report"\:\{.*#', stream_get_contents($logs));
+        self::assertMatchesRegularExpression(
+            '#.* test.ERROR: Reporting \{"csp-report"\:\{.*#',
+            stream_get_contents($logs)
+        );
     }
 }
