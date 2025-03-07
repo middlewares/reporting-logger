@@ -44,9 +44,13 @@ jobs:
                 - 7.2
                 - 7.3
                 - 7.4
+                - 8.0
+                - 8.1
+                - 8.2
+                - 8.3
               composer-args: [ "" ]
               include:
-                - php: 8.0
+                - php: 8.4
                   composer-args: --ignore-platform-reqs
             fail-fast: false
 
