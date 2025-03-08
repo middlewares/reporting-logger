@@ -30,7 +30,7 @@
         "oscarotero/php-cs-fixer-config": "^1.0",
         "monolog/monolog": "^2.0 || ^3.0",
         "phpstan/phpstan": "^0.12",
-        "laminas/laminas-diactoros": "^2.3"
+        "laminas/laminas-diactoros": "^2.3 || ^3.0"
     },
     "autoload": {
         "psr-4": {
