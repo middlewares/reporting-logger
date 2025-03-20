@@ -1,0 +1,10 @@
+parameters:
+    reportUnmatchedIgnoredErrors: false
+    level: 6
+    paths:
+        - src
+        - tests
+    ignoreErrors:
+        -
+            identifier: 'function.alreadyNarrowedType'
+            reportUnmatched: false

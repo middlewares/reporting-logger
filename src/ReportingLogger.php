@@ -33,7 +33,7 @@ class ReportingLogger implements MiddlewareInterface
      */
     private $responseFactory;
 
-    public function __construct(LoggerInterface $logger, ResponseFactoryInterface $responseFactory = null)
+    public function __construct(LoggerInterface $logger, ?ResponseFactoryInterface $responseFactory = null)
     {
         $this->logger = $logger;
         $this->responseFactory = $responseFactory ?: Factory::getResponseFactory();
@@ -94,6 +94,8 @@ class ReportingLogger implements MiddlewareInterface
 
     /**
      * Search and replace all %{varname} with the values from the reporting data
+     *
+     * @param array<mixed> $data
      */
     private static function getMessage(string $message, array $data): string
     {

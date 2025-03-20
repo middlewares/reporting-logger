@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Middlewares\Tests;
 
 use Middlewares\ReportingLogger;
@@ -8,6 +10,7 @@ use Middlewares\Utils\Factory;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use PHPUnit\Framework\TestCase;
+use Psr\Log\LoggerInterface;
 
 class ReportingLoggerTest extends TestCase
 {
@@ -18,12 +21,17 @@ class ReportingLoggerTest extends TestCase
     {
         if (method_exists(parent::class, 'assertMatchesRegularExpression')) {
             parent::assertMatchesRegularExpression($pattern, $string, $message);
+
             return;
         }
 
         self::assertRegExp($pattern, $string, $message);
     }
 
+    //     * @return list{0: resource, 1: LoggerInterface}
+    /**
+     * @return resource[]|LoggerInterface[]
+     */
     private function createLogger(): array
     {
         $logs = fopen('php://temp', 'r+');
@@ -33,7 +41,7 @@ class ReportingLoggerTest extends TestCase
         return [$logger, $logs];
     }
 
-    public function testReportingLogger()
+    public function testReportingLogger(): void
     {
         list($logger, $logs) = $this->createLogger();
 
@@ -54,7 +62,7 @@ class ReportingLoggerTest extends TestCase
         self::assertMatchesRegularExpression('#.* test.ERROR: Reporting .*#', stream_get_contents($logs));
     }
 
-    public function testCustomMessage()
+    public function testCustomMessage(): void
     {
         list($logger, $logs) = $this->createLogger();
 
@@ -75,7 +83,7 @@ class ReportingLoggerTest extends TestCase
         self::assertMatchesRegularExpression('#.* test.ERROR: Csp Error .*#', stream_get_contents($logs));
     }
 
-    public function testCustomMessageWithVariable()
+    public function testCustomMessageWithVariable(): void
     {
         list($logger, $logs) = $this->createLogger();
 
@@ -99,7 +107,7 @@ class ReportingLoggerTest extends TestCase
         );
     }
 
-    public function testCustomPath()
+    public function testCustomPath(): void
     {
         list($logger, $logs) = $this->createLogger();
 
@@ -120,7 +128,7 @@ class ReportingLoggerTest extends TestCase
         self::assertMatchesRegularExpression('#.* test.ERROR: Reporting .*#', stream_get_contents($logs));
     }
 
-    public function testMethod()
+    public function testMethod(): void
     {
         list($logger, $logs) = $this->createLogger();
 
@@ -140,7 +148,7 @@ class ReportingLoggerTest extends TestCase
         self::assertEmpty(stream_get_contents($logs));
     }
 
-    public function testPath()
+    public function testPath(): void
     {
         list($logger, $logs) = $this->createLogger();
 
@@ -160,7 +168,7 @@ class ReportingLoggerTest extends TestCase
         self::assertEmpty(stream_get_contents($logs));
     }
 
-    public function testEmptyData()
+    public function testEmptyData(): void
     {
         list($logger, $logs) = $this->createLogger();
 
@@ -179,7 +187,7 @@ class ReportingLoggerTest extends TestCase
         self::assertEmpty(stream_get_contents($logs));
     }
 
-    public function testCspReport()
+    public function testCspReport(): void
     {
         list($logger, $logs) = $this->createLogger();
 
