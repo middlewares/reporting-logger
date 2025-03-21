@@ -99,7 +99,7 @@ class ReportingLogger implements MiddlewareInterface
      */
     private static function getMessage(string $message, array $data): string
     {
-        return preg_replace_callback(
+        return (string) preg_replace_callback(
             '/%\{([^\}]+)\}/',
             function (array $matches) use ($data) {
                 $val = $data[$matches[1]] ?? $matches[0];

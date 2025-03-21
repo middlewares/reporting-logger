@@ -1,8 +1,9 @@
 parameters:
-    #treatPhpDocTypesAsCertain: false
     reportUnmatchedIgnoredErrors: false
-    inferPrivatePropertyTypeFromConstructor: true
-    level: 6
+    level: 8
     paths:
         - src
         - tests
+    ignoreErrors:
+        - "#preg_replace_callback expects#"
+        - "#assertMatchesRegula#"

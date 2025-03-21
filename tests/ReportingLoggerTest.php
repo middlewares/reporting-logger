@@ -10,7 +10,6 @@ use Middlewares\Utils\Factory;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use PHPUnit\Framework\TestCase;
-use Psr\Log\LoggerInterface;
 
 class ReportingLoggerTest extends TestCase
 {
@@ -28,13 +27,14 @@ class ReportingLoggerTest extends TestCase
         self::assertRegExp($pattern, $string, $message);
     }
 
-    //     * @return list{0: resource, 1: LoggerInterface}
     /**
-     * @return resource[]|LoggerInterface[]
+     * @return array{0: Logger, 1: resource}
      */
     private function createLogger(): array
     {
+        /** @var resource $logs */
         $logs = fopen('php://temp', 'r+');
+
         $logger = new Logger('test');
         $logger->pushHandler(new StreamHandler($logs));
 
@@ -59,7 +59,7 @@ class ReportingLoggerTest extends TestCase
 
         self::assertSame(200, $response->getStatusCode());
         self::assertEmpty((string) $response->getBody());
-        self::assertMatchesRegularExpression('#.* test.ERROR: Reporting .*#', stream_get_contents($logs));
+        self::assertMatchesRegularExpression('#.* test.ERROR: Reporting .*#', (string) stream_get_contents($logs));
     }
 
     public function testCustomMessage(): void
@@ -80,7 +80,7 @@ class ReportingLoggerTest extends TestCase
 
         self::assertSame(200, $response->getStatusCode());
         self::assertEmpty((string) $response->getBody());
-        self::assertMatchesRegularExpression('#.* test.ERROR: Csp Error .*#', stream_get_contents($logs));
+        self::assertMatchesRegularExpression('#.* test.ERROR: Csp Error .*#', (string) stream_get_contents($logs));
     }
 
     public function testCustomMessageWithVariable(): void
@@ -103,7 +103,7 @@ class ReportingLoggerTest extends TestCase
         self::assertEmpty((string) $response->getBody());
         self::assertMatchesRegularExpression(
             '#.* test.ERROR: Error: Foo in %{var2} and \[1,2,3\] .*#',
-            stream_get_contents($logs)
+            (string) stream_get_contents($logs)
         );
     }
 
@@ -125,7 +125,7 @@ class ReportingLoggerTest extends TestCase
 
         self::assertSame(200, $response->getStatusCode());
         self::assertEmpty((string) $response->getBody());
-        self::assertMatchesRegularExpression('#.* test.ERROR: Reporting .*#', stream_get_contents($logs));
+        self::assertMatchesRegularExpression('#.* test.ERROR: Reporting .*#', (string) stream_get_contents($logs));
     }
 
     public function testMethod(): void
@@ -220,7 +220,7 @@ class ReportingLoggerTest extends TestCase
         self::assertEmpty((string) $response->getBody());
         self::assertMatchesRegularExpression(
             '#.* test.ERROR: Reporting \{"csp-report"\:\{.*#',
-            stream_get_contents($logs)
+            (string) stream_get_contents($logs)
         );
     }
 }
